@@ -51,8 +51,7 @@ export class ContaPage extends Component{
 const style = StyleSheet.create({
     viewPrincipal: {
         flex: 1,
-        paddingTop: 20,
-        // backgroundColor: '#beffaa'
+        paddingTop: 20
     },
     viewLabel:{
         flexDirection: 'row',

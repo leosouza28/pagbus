@@ -1,4 +1,5 @@
 export const modificaLatitude = (latitude) => {
+    console.log(latitude)
     return{
         type: 'modifica_latitude',
         payload: latitude
@@ -6,6 +7,7 @@ export const modificaLatitude = (latitude) => {
     }
 }
 export const modificaLongitude = (longitude) => {
+    console.log(longitude)
     return{
         type: 'modifica_longitude',
         payload: longitude
@@ -27,9 +29,15 @@ export const modifica_lon_delta = (latDelta) => {
     }
 }
 
-export const modifica_regiao = (coord, valor) => {
+export const buscaCidade = (props) => {
+    let API_KEY= 'AIzaSyBC_8uOi3_e_qzNrHDzBPD-K8mqpAd2tFc'
+    let coords = {
+        latitude: props.region.latitude,
+        longitude: props.region.longitude
+    }
+    let URL = `https://maps.googleapis.com/maps/api/geocode/json?key=${API_KEY}&latlng=${coords.latitude},${coords.longitude}`
+    console.log('URL:', URL);
     return{
-        type: 'altera_regiao',
-        payload: valor
+        type: '----'
     }
 }
