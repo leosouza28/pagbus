@@ -59,26 +59,7 @@ export class OpContaPage extends Component {
                     <LoginPage/>
                     </View>
                 </Modal>
-            </View>   
-        : this.props.modalProp == 'TrocaCidade' ?
-            <View>
-                    <Modal 
-                    visible={true}
-                    animationType={'fade'}
-                    onRequestClose={()=>{
-                        this.props.modificaModal('')
-                        this.props.modificaStatusModal(false)}}>
-                        <View style={style.viewContainer}>
-                        <Text>Trocar cidade</Text>
-                        <Button
-                        title='Fechar'
-                        onPress={()=>{
-                            this.props.modificaModal('')
-                            this.props.modificaStatusModal(false)}}/>
-                        
-                        </View>
-                    </Modal>
-            </View>   
+            </View>      
         : this.props.modalProp == 'Atendimento' ?
             <View>
                 <Modal 

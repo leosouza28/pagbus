@@ -36,9 +36,8 @@ export class ContaPage extends Component{
                         </View>
                         <ScrollView style={{paddingTop: 15}}>
                             <OpContaPage icone='input' funcao='Acesse ou registre-se' cidade='' modal='Login'/>
-                            <OpContaPage icone='location-city' funcao='Trocar cidade' cidade='Belém' modal='TrocaCidade'/>
                             <OpContaPage icone='message' funcao='Atendimento ao cliente' cidade='' modal='Atendimento'/>
-                            <OpContaPage icone='info' funcao='Sobre o App' cidade='' modal='Sobre'/>
+                            <OpContaPage icone='info' funcao='Sobre o PagBus' cidade='' modal='Sobre'/>
                         </ScrollView>
                     </View>
                 </View>

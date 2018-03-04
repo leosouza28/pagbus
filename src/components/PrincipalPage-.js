@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {StyleSheet, View, Text,ActivityIndicator, TouchableOpacity, Button } from 'react-native';
 import {connect} from 'react-redux';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
     buscaCidade,
@@ -47,6 +47,7 @@ export class PrincipalPage extends Component{
             (position) => {
                 this.props.modificaUserLatitude(position.coords.latitude)
                 this.props.modificaUserLongitude(position.coords.longitude)
+                // this.marker.animateMarkerToCoordinate()
             },
             (error)=>{ console.log(error); },
             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -71,24 +72,29 @@ export class PrincipalPage extends Component{
         <View style={{flex:1}}>
             <View style={style.container}>
                 <MapView
-                provider={'google'}
-                onPress={(event) => console.log(event.nativeEvent.coordinate) }
-                ref={ref => this.map = ref}
+                ref={ ref => {this.map = ref;}}
                 style={style.map}
                 initialRegion={this.props.region}
                 onMapReady={()=>{
-                    this.getInitialRegion()
-                    this.attUserLocation()
+                    this.getInitialRegion();
                 }}
-                >
-                <Marker
-                ref={(c) => {this.marker = c;}}
-                coordinate={this.props.userLocation}>
-                    <View style={style.radius}>
-                        <View style={style.marker}/>
-                    </View>
-                </Marker>
-                </MapView>
+                loadingEnabled={true}>
+                    <Marker
+                    ref={(c) => {this.marker = c;}}
+                    coordinate={this.props.userLocation}>
+                        <View style={style.radius}>
+                            <View style={style.marker}/>
+                        </View>
+                    </Marker>
+                    <TouchableOpacity
+                    style={{borderWidth:1, height: 50, width: 50, justifyContent: 'center'}}
+                    onPress={()=>{
+                       this.attUserLocation()
+                       console.log(this.props.userLocation)
+                    }}>
+                    <Text>Clique!</Text>
+                    </TouchableOpacity>
+                </MapView> 
             </View>
         </View>
         )

@@ -1,11 +1,16 @@
 const INITIAL_STATE = {
     latitude: 0,
     longitude: 0,
-    latitudeDelta: 0,
-    longitudeDelta: 0
+    latitudeDelta: 0.017,
+    longitudeDelta: 0.011,
+    userLatitude: 0,
+    userLongitude: 0
 }
 
 export default (state = INITIAL_STATE, action)=>{
+    if(action.type == 'mod  ifica_latitude'){
+        return { ...state, latitude: action.payload}
+    }
     if(action.type == 'modifica_latitude'){
         return { ...state, latitude: action.payload}
     }
@@ -17,6 +22,12 @@ export default (state = INITIAL_STATE, action)=>{
     }
     if(action.type == 'modifica_lon_delta'){
         return { ...state, longitudeDelta: action.payload}
+    }
+    if(action.type == 'modifica_user_latitude'){
+        return { ...state, userLatitude: action.payload}
+    }
+    if(action.type == 'modifica_user_longitude'){
+        return { ...state, userLongitude: action.payload}
     }
     return state;
 }

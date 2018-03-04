@@ -5,12 +5,12 @@ import {TabNavigator, TabBarBottom, StackNavigator} from 'react-navigation';
 import PrincipalPage from './components/PrincipalPage';
 import LoginPage from './components/LoginPage';
 import ContaPage from './components/ContaPage';
-import CarteiraPage from './components/CarteiraPage';
+import CartaoPage from './components/CartaoPage';
 
 const RootStack = TabNavigator(
     {
       Navegar: { screen: PrincipalPage },
-      Carteira: { screen: CarteiraPage },
+      Cartao: { screen: CartaoPage },
       Conta: { screen: ContaPage },
     },
     {
@@ -22,8 +22,8 @@ const RootStack = TabNavigator(
             iconName = 'directions-bus'
           } else if (routeName === 'Conta') {
             iconName = 'account-circle';
-          } else if (routeName === 'Carteira'){
-            iconName = 'account-balance-wallet'
+          } else if (routeName === 'Cartao'){
+            iconName = 'credit-card'
           }
           // You can return any component that you like here! We usually use an
           // icon component from react-native-vector-icons
