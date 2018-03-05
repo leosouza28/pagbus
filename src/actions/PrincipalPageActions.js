@@ -55,3 +55,7 @@ export const buscaCidade = (props) => {
         type: '----'
     }
 }
+
+export const buscarRota = (props) =>{
+    let API_KEY_ROTA = 'AIzaSyCryKUqbOiTWoFq8oWQrosvlGAijPvndmI'
+}

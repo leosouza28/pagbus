@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import {StyleSheet, View, Text,ActivityIndicator, TouchableOpacity, Button } from 'react-native';
 import {connect} from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {TabNavigator} from './TabNavigator';
+import {verificaLogin} from '../actions/LoginPageActions';
 import {
     buscaCidade,
     modificaLatitude,
@@ -12,6 +13,7 @@ import {
     modificaUserLatitude,
     modificaUserLongitude
 } from '../actions/PrincipalPageActions';
+// Fim - Importações
 
 let actionCreators = {
     modificaLatitude,
@@ -20,7 +22,8 @@ let actionCreators = {
     modificaLonDelta,
     modificaUserLatitude,
     modificaUserLongitude,
-    buscaCidade
+    buscaCidade,
+    verificaLogin
 };
 
 const mapStateToProps = state => ({
@@ -41,15 +44,21 @@ export class PrincipalPage extends Component{
     constructor(props){
         super(props);
     }
+    componentWillMount(){
+        this.props.verificaLogin()
+    }
 
     attUserLocation(){
-        navigator.geolocation.getCurrentPosition(
+        navigator.geolocation.watchPosition(
             (position) => {
                 this.props.modificaUserLatitude(position.coords.latitude)
                 this.props.modificaUserLongitude(position.coords.longitude)
+                userLoc = this.props.userLocation;
+                console.log('Anda')
+                this.map.animateToCoordinate(userLoc, 1000)
             },
             (error)=>{ console.log(error); },
-            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+            {enableHighAccuracy: true, timeout: 1000, maximumAge: 1}
         )
     }
 
@@ -68,27 +77,34 @@ export class PrincipalPage extends Component{
 
     render(){
         return(
-        <View style={{flex:1}}>
-            <View style={style.container}>
-                <MapView
-                provider={'google'}
-                onPress={(event) => console.log(event.nativeEvent.coordinate) }
-                ref={ref => this.map = ref}
-                style={style.map}
-                initialRegion={this.props.region}
-                onMapReady={()=>{
-                    this.getInitialRegion()
-                    this.attUserLocation()
-                }}
-                >
-                <Marker
-                ref={(c) => {this.marker = c;}}
-                coordinate={this.props.userLocation}>
-                    <View style={style.radius}>
-                        <View style={style.marker}/>
-                    </View>
-                </Marker>
-                </MapView>
+        <View style={{flex: 1}}>        
+            <View style={{flex: 9}}>
+                <View style={style.container}>
+                    <MapView
+                    provider={'google'}
+                    // onPress={(event) => console.log(event.nativeEvent.coordinate) }
+                    // onRegionChange={region=>{console.log(region)}}
+                    ref={ref => this.map = ref}
+                    style={style.map} 
+                    initialRegion={this.props.region}
+                    onMapReady={()=>{
+                        this.getInitialRegion()
+                        this.attUserLocation()
+                    }}
+                    >
+                    <Marker
+                    ref={(c) => {this.marker = c;}}
+                    coordinate={this.props.userLocation}
+                    onPress={()=>console.log('piça')}>
+                        <View style={style.radius}>
+                            <View style={style.marker}/>
+                        </View>
+                    </Marker>
+                    </MapView>
+                </View>
+            </View>
+            <View style={{flex:1}}>
+                <TabNavigator/>
             </View>
         </View>
         )

@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {modificaTextoEmail, modificaTextoSenha, login} from '../actions/LoginPageActions';
 import {connect} from 'react-redux';
 
+const actionCreators = {
+    modificaTextoEmail,
+    modificaTextoSenha,
+    login
+}
+
 const mapStateToProps = state => ({
+    email: state.LoginPageReducer.email,
+    senha: state.LoginPageReducer.senha
 })
 
 export class LoginPage extends Component{
 
     constructor(props){
         super(props)
-        console.log('LoginPage',props);
     }
     render(){
         return(
@@ -29,6 +37,7 @@ export class LoginPage extends Component{
                     </View>
                     <TextInput
                     style={style.input}
+                    onChangeText={(texto)=>{this.props.modificaTextoEmail(texto)}}
                     autoCorrect={false}
                     keyboardType='email-address'
                     placeholder='E-mail'
@@ -41,6 +50,7 @@ export class LoginPage extends Component{
                     <TextInput
                     style={style.input}
                     keyboardType='default'
+                    onChangeText={(texto) => {this.props.modificaTextoSenha(texto)}}
                     secureTextEntry={true}
                     placeholder='Senha'
                     />
@@ -52,7 +62,8 @@ export class LoginPage extends Component{
                         </TouchableOpacity>
                     </View>
 
-                    <TouchableOpacity style={{borderWidth: 1, padding: 10, borderColor: '#000'}}>
+                    <TouchableOpacity style={{borderWidth: 1, padding: 10, borderColor: '#000'}}
+                    onPress={()=>this.props.login(this.props)}>
                         <Text style={{fontSize: 14, color: '#000', fontWeight: '600'}}>ENTRAR</Text>
                     </TouchableOpacity>
                 </View>
@@ -98,4 +109,4 @@ const style = StyleSheet.create({
         justifyContent: 'space-between',
     }
 })
-export default connect (mapStateToProps, null)(LoginPage)
+export default connect (mapStateToProps, actionCreators)(LoginPage)
