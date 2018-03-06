@@ -1,21 +1,46 @@
 import React,{Component} from 'react';
-import { StyleSheet, View, Text, Button, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Button, ScrollView, TouchableOpacity } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import {Actions} from 'react-native-router-flux';
+import {Cartao} from './Cartao';
+import {Movimento} from './Movimento';
 
 export default class CartaoPage extends Component{
     render(){
         return(
             <View style={style.viewPrincipal}>
                 <View style={style.viewTopo}>
-                    <View style={style.cartao}>
-
+                    <View style={style.viewLabel}>
+                            <TouchableOpacity 
+                            onPress={()=>Actions.pop()}
+                            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                <MaterialIcons name='keyboard-arrow-left' size={24} color='#000'/>
+                            </TouchableOpacity>
+                            <View style={{flex: 5}}>
+                                <Text style={style.textLabel}>
+                                Cartão</Text>
+                            </View>
                     </View>
                 </View>
                 <View style={style.viewBody}>
-                    <ScrollView style={{flex: 1}}>
-                        <Text>ScrollView</Text>
-                    </ScrollView>
+                    <View style={{flex: 1}}>
+                        <View style={style.cartao}>
+                            <Cartao titular='Lobo Developers' numcartao='9999 0000 90909090'/>
+                        </View>
+                        <View style={{flex: 8}}>
+                            <ScrollView style={{flex: 1}}>
+                                <Movimento mov='credito'/>
+                                <Movimento mov='debito'/>
+                                <Movimento mov='credito'/>
+                            </ScrollView>
+                        </View>
+                    </View>
                 </View>
                 <View style={style.viewBottom}>
+                    <Text style={style.textLabel}>Disponível:</Text>
+                    <Text style={style.textLabel}>
+                        R$ 0,00
+                    </Text>
                 </View>
             </View>
         )
@@ -27,8 +52,15 @@ const style = StyleSheet.create({
         paddingTop: 15
     },
     viewTopo:{
-        flex: 4,
-        padding: 15
+        flex: 1
+    },
+    viewLabel:{
+        flexDirection: 'row',
+        paddingTop: 15,
+        paddingLeft: 5,
+        borderBottomWidth: 1.5,
+        borderColor: 'grey',
+        paddingBottom: 10,
     },
     viewBody: {
         flex: 6,
@@ -37,18 +69,24 @@ const style = StyleSheet.create({
     },
     viewBottom:{
         flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         borderTopWidth: 1,
         marginLeft: 15,
         marginRight: 15,
-        // paddingLeft: 15,
-        // paddingRight: 15
     },
     cartao:{
-        flex: 1,
+        flex: 6,
         borderWidth: 1,
         borderRadius: 5,
-        // shadowOffset: {width: 1, height: 1},
-        // shadowOpacity: 1,
-        backgroundColor: 'rgba(0,0,0,1)'
+        marginBottom: 15
+    },
+    textLabel:{
+        fontSize: 26,
+        color: '#000',
+        fontFamily: 'Thonburi',
+        fontWeight: 'bold',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     }
 });

@@ -1,8 +1,8 @@
 const INITIAL_STATE = {
     latitude: 0,
     longitude: 0,
-    latitudeDelta: 0.10,
-    longitudeDelta: 0.12,
+    latitudeDelta: 0.0070,
+    longitudeDelta: 0.0012,
     userLatitude: 0,
     userLongitude: 0
 }

@@ -1,3 +1,5 @@
+import { Actions } from 'react-native-router-flux';
+
 const con = require('../actions/RequisicaoActions');
 const Sessao = require('../actions/Storage');
 
@@ -24,12 +26,10 @@ export const login = (props) =>{
     .then(data=>{
         res = data;
         if(!res.token){
-            console.log('Erro ao efetuar login')
             Sessao.finalizar()
         } else {
-            Sessao.iniciar(res.token,res.email)
+            Sessao.iniciar(res.token,res.email);
         }
-
     })
     .catch(err => {
         console.log(err)

@@ -61,6 +61,7 @@ const style = StyleSheet.create({
     },
     viewLabel:{
         flexDirection: 'row',
+        paddingTop: 15,
         paddingLeft: 5,
         borderBottomWidth: 1.5,
         borderColor: 'grey',

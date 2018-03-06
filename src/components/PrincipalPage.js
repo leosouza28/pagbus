@@ -1,9 +1,11 @@
 import React,{Component} from 'react';
-import {StyleSheet, View, Text,ActivityIndicator, TouchableOpacity, Button } from 'react-native';
+import {StyleSheet, View, Text, ActivityIndicator, TouchableOpacity, Button, TextInput, Image } from 'react-native';
 import {connect} from 'react-redux';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MapView, { Marker } from 'react-native-maps';
 import {TabNavigator} from './TabNavigator';
 import {verificaLogin} from '../actions/LoginPageActions';
+import {Buscador} from '../components/Buscador';
 import {
     buscaCidade,
     modificaLatitude,
@@ -38,6 +40,8 @@ const mapStateToProps = state => ({
         longitude: state.PrincipalPageReducer.userLongitude,
     }
 })
+
+const logo = require('../images/pagbus200.png');
 
 export class PrincipalPage extends Component{
 
@@ -90,17 +94,22 @@ export class PrincipalPage extends Component{
                     onMapReady={()=>{
                         this.getInitialRegion()
                         this.attUserLocation()
-                    }}
-                    >
-                    <Marker
-                    ref={(c) => {this.marker = c;}}
-                    coordinate={this.props.userLocation}
-                    onPress={()=>console.log('piça')}>
-                        <View style={style.radius}>
-                            <View style={style.marker}/>
-                        </View>
-                    </Marker>
+                    }}>
+                        <Marker
+                        ref={(c) => {this.marker = c;}}
+                        coordinate={this.props.userLocation}>
+                            <View style={style.radius}>
+                                {/* <View style={style.marker}/> */}
+                                <Image
+                                source={logo}
+                                style={style.marker}
+                                />
+                            </View>
+                        </Marker>
                     </MapView>
+
+                    <Buscador/>
+                    
                 </View>
             </View>
             <View style={{flex:1}}>
@@ -133,14 +142,19 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    // marker:{
+    //     height: 20,
+    //     width: 20,
+    //     borderWidth: 3,
+    //     borderColor: 'white',
+    //     borderRadius: 20 / 2,
+    //     overflow: 'hidden',
+    //     backgroundColor: '#007AFF'
+    // },
     marker:{
-        height: 20,
+        height: 35,
         width: 20,
-        borderWidth: 3,
-        borderColor: 'white',
-        borderRadius: 20 / 2,
-        overflow: 'hidden',
-        backgroundColor: '#007AFF'
+        overflow: 'hidden'
     },
     containerLoading: {
         flex: 1,
@@ -150,6 +164,16 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         padding: 10
+    },
+    viewCentraliza:{
+        height: 40,
+        width: 40,
+        backgroundColor: '#FFF',
+        borderRadius: 50/2,
+        overflow: 'hidden',
+        position: 'absolute',
+        top: 520,
+        left: 300
     }
 });
 

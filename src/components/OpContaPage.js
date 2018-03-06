@@ -31,7 +31,7 @@ export class OpContaPage extends Component {
                             <View>
                                 <MaterialIcons name={this.props.icone} size={26} color="#000" />
                             </View>
-                                    <Text style={style.textOpcao}>{this.props.funcao}</Text>
+                            <Text style={style.textOpcao}>{this.props.funcao}</Text>
                         </View>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             {this.props.cidade != '' ? <Text style={{fontSize: 12}}>{this.props.cidade}</Text> : false}
@@ -56,7 +56,7 @@ export class OpContaPage extends Component {
                                 this.props.modificaModal('')
                                 this.props.modificaStatusModal(false)}}/>
                         </View>
-                    <LoginPage/>
+                        <LoginPage/>
                     </View>
                 </Modal>
             </View>      

@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'reac
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {modificaTextoEmail, modificaTextoSenha, login} from '../actions/LoginPageActions';
 import {connect} from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 const actionCreators = {
     modificaTextoEmail,
@@ -15,19 +16,25 @@ const mapStateToProps = state => ({
     senha: state.LoginPageReducer.senha
 })
 
+const logo = require('../images/pagbus200.png')
+
 export class LoginPage extends Component{
 
     constructor(props){
         super(props)
     }
+
     render(){
         return(
         <View
         style={{flex:1, paddingTop: 15}}>
             <View style={{flex: 1, borderBottomWidth: 1, marginLeft: 10, marginRight: 10, borderColor: '#000'}}>
                 <View
-                style={{alignItems: 'center'}}
-                >
+                style={{alignItems: 'center'}}>
+                <Image
+                source={logo}
+                style={{height: 180, width: 100}}
+                />
                 </View>
             </View>
             <View style={{flex: 1, alignItems:'center'}}>
@@ -63,7 +70,10 @@ export class LoginPage extends Component{
                     </View>
 
                     <TouchableOpacity style={{borderWidth: 1, padding: 10, borderColor: '#000'}}
-                    onPress={()=>this.props.login(this.props)}>
+                    onPress={()=>{
+                        Actions.pop()
+                        this.props.login(this.props)
+                    }}>
                         <Text style={{fontSize: 14, color: '#000', fontWeight: '600'}}>ENTRAR</Text>
                     </TouchableOpacity>
                 </View>
