@@ -1,16 +1,10 @@
 const INITIAL_STATE = {
-    modalStatus: false,
-    modal: ''
+    logado: false
 }
 
 export default (state = INITIAL_STATE, action)=>{
-    if(action.type == 'modifica_status_modal'){
-        console.log(action.payload)
-        return { ...state, modalStatus: action.payload}
-    }
-    if(action.type == 'modifica_modal'){
-        console.log(action.payload)
-        return { ...state, modal: action.payload }
+    if(action.type == 'modifica_status_login'){
+        return { ...state, logado: action.payload}
     }
     return state;
 }

@@ -1,45 +1,7 @@
-export const modificaLatitude = (latitude) => {
-    console.log(latitude)
-    return{
-        type: 'modifica_latitude',
-        payload: latitude
-
-    }
-}
-export const modificaLongitude = (longitude) => {
-    console.log(longitude)
-    return{
-        type: 'modifica_longitude',
-        payload: longitude
-
-    }
-}
-export const modificaLatDelta = (latDelta) => {
-    return{
-        type: 'modifica_lat_delta',
-        payload: latDelta
-
-    }
-}
-export const modificaLonDelta = (latDelta) => {
-    return{
-        type: 'modifica_lon_delta',
-        payload: latDelta
-
-    }
-}
-
-export const modificaUserLatitude = (latitude) =>{
-    return{
-        type: 'modifica_user_latitude',
-        payload: latitude
-    }
-}
-
-export const modificaUserLongitude = (longitude) =>{
-    return{
-        type: 'modifica_user_longitude',
-        payload: longitude
+export const modificaReducerPrincipal = (index, value) => {
+    return {
+        type: 'modifica_reducer_principal',
+        payload: {index, value}
     }
 }
 

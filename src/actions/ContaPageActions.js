@@ -1,14 +1,6 @@
-export const modificaStatusModal = (status) => {
+export const modificaStatusLogin = (status) => {
     return{
-        type: 'modifica_status_modal',
+        type: 'modifica_status_login',
         payload: status
-
-    }
-}
-export const modificaModal = (modal) => {
-    return{
-        type: 'modifica_modal',
-        payload: modal
-
     }
 }

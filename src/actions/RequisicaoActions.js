@@ -1,5 +1,5 @@
 const Con = {
-    servidor: 'http://localhost:3003',
+    servidor: 'http://192.168.1.112:3003',
     post(rota, dados){
         return new Promise((success, reject)=>{
             fetch(`${this.servidor}${rota}`, {

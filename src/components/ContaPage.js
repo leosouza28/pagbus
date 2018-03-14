@@ -1,71 +1,83 @@
 import React, {Component} from 'react';
-import { ScrollView, StyleSheet, View, Text, Button, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
 import {connect} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import OpContaPage from './OpContaPage';
 import LoginPage from './LoginPage';
-import {modificaStatusModal} from '../actions/ContaPageActions';
 import { Actions } from 'react-native-router-flux';
+import {BtnVoltar} from './BtnVoltar';
+import { modificaStatusLogin } from '../actions/ContaPageActions';
+import { verificaLogin, logoff } from '../actions/LoginPageActions';
+import { InfoContaPage } from './InfoContaPage';
+
+const actionCreators = {
+    modificaStatusLogin,
+    verificaLogin,
+    logoff
+}
 
 const mapStateToProps = state => ({
-    modalLogin: state.ContaPageReducer.modalLogin,
+    logado: state.ContaPageReducer.logado
 })
 
 export class ContaPage extends Component{
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            logado: false
-        }
+
+    componentWillMount(){
+        verificaLogin(this.props)
     }
+
     render(){
-        if(this.state.logado == true){
-            return(
-                <View style={style.viewPrincipal}>
-                    <Text>Logado</Text>
-                </View>
-            )
-        } else {
-            return(
-                <View style={style.viewPrincipal}>
-                    <View style= {{flex: 1}}>
-                        <View style={style.viewLabel}>
-                            <TouchableOpacity 
-                            onPress={()=>Actions.pop()}
-                            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                                <MaterialIcons name='keyboard-arrow-left' size={24} color='#000'/>
-                            </TouchableOpacity>
-                            <View style={{flex: 5}}>
-                                <Text style={style.textLabel}>
-                                Minha Conta</Text>
-                            </View>
-                        </View>
-                        <ScrollView style={{paddingTop: 15}}>
-                            <OpContaPage icone='input' funcao='Acesse ou registre-se' cidade='' modal='Login'/>
-                            <OpContaPage icone='message' funcao='Atendimento ao cliente' cidade='' modal='Atendimento'/>
-                            <OpContaPage icone='info' funcao='Sobre o PagBus' cidade='' modal='Sobre'/>
-                        </ScrollView>
+         return(
+            <View style={{flex:1}}>
+                <View style={style.viewTopo}>
+                    <View style={{justifyContent: 'center', paddingLeft: 15,paddingRight:15,paddingTop: 2.5}}>
+                        <BtnVoltar/>
+                    </View>
+                    <View style={{justifyContent: 'center',flex :1}}>
+                        <Text style={style.textLabel}>Conta</Text>
                     </View>
                 </View>
-            )
-        }
+                <View style={style.viewCorpo}>
+                <ScrollView style={{paddingTop: 15}}>
+                    {this.props.logado == true ?
+                    <View>
+                        <OpContaPage icone='account-box' funcao='Meus dados' link='detalhes'/>
+                        <OpContaPage icone='directions' funcao='Adicionar rota' link='rotas'/>
+                        <OpContaPage icone='directions-subway' funcao='Adicionar ponto de onibus' link='rotas'/>
+                    </View>
+                    :
+                    <OpContaPage icone='input' funcao='Acesse ou registre-se' link='login'/>
+                    }
+                    <OpContaPage icone='message' funcao='Atendimento ao cliente' link='atendimento'/>
+                    <OpContaPage icone='info' funcao='Sobre o PagBus' link='sobre'/>
+                    </ScrollView>
+                </View>
+
+                <View style={style.viewRodape}>
+                <Button
+                title='Sair'
+                onPress={()=>{this.props.logoff(this.props)}}/>
+                </View>
+            </View>
+        )
     }
 }
 
 
 const style = StyleSheet.create({
-    viewPrincipal: {
+    viewTopo:{
         flex: 1,
-        paddingTop: 20
-    },
-    viewLabel:{
+        borderBottomWidth: 1,
+        paddingTop: 20,
         flexDirection: 'row',
-        paddingTop: 15,
-        paddingLeft: 5,
-        borderBottomWidth: 1.5,
-        borderColor: 'grey',
-        paddingBottom: 10,
+        marginLeft: 10,
+        marginRight: 10
+    },
+    viewCorpo:{
+        flex: 8
+    },
+    viewRodape:{
+        flex: 1
     },
     textLabel:{
         fontSize: 26,
@@ -74,6 +86,14 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: 'center',
         justifyContent: 'space-between'
+    },
+    btnSair:{
+        flex:1, 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+        borderTopWidth:1,
+        borderColor: '#FFF'
     }
 });
-export default connect (mapStateToProps, {modificaStatusModal})(ContaPage)
+export default connect (mapStateToProps, actionCreators)(ContaPage)

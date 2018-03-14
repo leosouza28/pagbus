@@ -5,26 +5,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MapView, { Marker } from 'react-native-maps';
 import {TabNavigator} from './TabNavigator';
 import {verificaLogin} from '../actions/LoginPageActions';
-import {Buscador} from '../components/Buscador';
+import Buscador from '../components/Buscador';
 import {
-    buscaCidade,
-    modificaLatitude,
-    modificaLongitude,
-    modificaLatDelta,
-    modificaLonDelta,
-    modificaUserLatitude,
-    modificaUserLongitude
+    modificaReducerPrincipal
 } from '../actions/PrincipalPageActions';
-// Fim - Importações
 
 let actionCreators = {
-    modificaLatitude,
-    modificaLongitude,
-    modificaLatDelta,
-    modificaLonDelta,
-    modificaUserLatitude,
-    modificaUserLongitude,
-    buscaCidade,
+    modificaReducerPrincipal,
     verificaLogin
 };
 
@@ -53,10 +40,10 @@ export class PrincipalPage extends Component{
     }
 
     attUserLocation(){
-        navigator.geolocation.watchPosition(
+        navigator.geolocation.getCurrentPosition(
             (position) => {
-                this.props.modificaUserLatitude(position.coords.latitude)
-                this.props.modificaUserLongitude(position.coords.longitude)
+                this.props.modificaReducerPrincipal('userLatitude',position.coords.latitude)
+                this.props.modificaReducerPrincipal('userLongitude',position.coords.longitude)
                 userLoc = this.props.userLocation;
                 console.log('Anda')
                 this.map.animateToCoordinate(userLoc, 1000)
@@ -69,8 +56,8 @@ export class PrincipalPage extends Component{
     getInitialRegion(){
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                this.props.modificaLatitude(position.coords.latitude);
-                this.props.modificaLongitude(position.coords.longitude);
+                this.props.modificaReducerPrincipal('latitude',position.coords.latitude);
+                this.props.modificaReducerPrincipal('longitude',position.coords.longitude);
                 region = this.props.region;
                 this.map.animateToRegion(region, 200);
             },
