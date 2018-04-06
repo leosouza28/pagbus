@@ -12,7 +12,7 @@ const Util = {
             { cancelable: false }
         )
     },
-    buscaCep(cep){
+    buscaCep(cep) {
         return new Promise((success, reject) => {
             let res = cep.replace('-', '')
             let vBR = res.length;
@@ -28,7 +28,7 @@ const Util = {
                             estado: i[4].short_name,
                         }
                         success(info);
-                    } 
+                    }
                     else if (i.length == 5 && vBR == 8) {
                         let viaCep = `http://viacep.com.br/ws/${res}/json/`
                         Axios.get(viaCep)
@@ -42,7 +42,7 @@ const Util = {
                                 }
                                 success(info);
                             }).catch(err => reject(err))
-                    } else if (i.length == 4){
+                    } else if (i.length == 4) {
                         let info = {
                             endereco: i[1].long_name,
                             cidade: i[2].long_name,
@@ -53,9 +53,8 @@ const Util = {
                 })
                 .catch(err => {
                     reject(err)
-            })
+                })
         })
-        
     }
 }
 

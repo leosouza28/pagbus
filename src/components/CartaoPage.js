@@ -3,10 +3,47 @@ import { StyleSheet, View, Text, Button, ScrollView, TouchableOpacity } from 're
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import {Actions} from 'react-native-router-flux';
 import {Cartao} from './Cartao';
-import {Movimento} from './Movimento';
+import Movimento from './Movimento';
+
+
+let movs = [
+    {
+        id: 0,
+        data: '10/01/2018',
+        descricao: 'Recarga',
+        movimento: 'C',
+        valor: 50.0
+    },
+    {
+        id: 1,
+        data: '12/01/2018',
+        descricao: 'Viagem XXX',
+        movimento: 'D',
+        valor: 15.0
+    },
+    {
+        id: 2,
+        data: '13/01/2018',
+        descricao: 'Viagem XXX',
+        movimento: 'D',
+        valor: 20.0
+    }
+]
+
+let soma = 0;
+
 
 export default class CartaoPage extends Component{
     render(){
+        movs.map((mov,key) => {
+            if(mov.movimento == 'C' ){
+                soma += mov.valor
+            } else {
+                soma -= mov.valor;
+            }
+        })
+
+
         return(
             <View style={style.viewPrincipal}>
                 <View style={style.viewTopo}>
@@ -29,9 +66,17 @@ export default class CartaoPage extends Component{
                         </View>
                         <View style={{flex: 8}}>
                             <ScrollView style={{flex: 1}}>
-                                <Movimento mov='credito'/>
-                                <Movimento mov='debito'/>
-                                <Movimento mov='credito'/>
+                            {
+                                movs.map((m,key) => (
+                                    <Movimento
+                                    key={key}
+                                    tipoMov={m.movimento}
+                                    dtMov={m.data}
+                                    desc={m.descricao}
+                                    valor={m.valor}
+                                    />
+                                ))
+                            }
                             </ScrollView>
                         </View>
                     </View>
@@ -39,7 +84,7 @@ export default class CartaoPage extends Component{
                 <View style={style.viewBottom}>
                     <Text style={style.textLabel}>Disponível:</Text>
                     <Text style={style.textLabel}>
-                        R$ 0,00
+                       {soma}
                     </Text>
                 </View>
             </View>

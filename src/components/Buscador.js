@@ -28,7 +28,7 @@ export default props => (
                     />
                 </View>
             </View>
-            <View style={{ flex: 5, justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: 25, paddingBottom: 15 }}>
+            <View style={{ flex: 5, justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: 25, paddingBottom: 10, marginTop: 5 }}>
                 <TouchableOpacity
                     style={style.botao}
                 >
